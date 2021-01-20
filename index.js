@@ -3,10 +3,10 @@ const serve = require('koa-static');
 const cors = require('@koa/cors');
 const Router = require("@koa/router");
 const fs = require('fs')
-const delDir = require('./delDir')
-const script = require('./script');
+const delDir = require('./utils/delDir')
+const script = require('./utils/script');
 const config = require('./config.json')
-const connect = require('./Message')
+const connect = require('./utils/Message')
 const WebSocket=require('ws')
 const http=require('http')
 if(!fs.existsSync('./www')){

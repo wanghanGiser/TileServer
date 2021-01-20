@@ -8,7 +8,7 @@ module.exports = async function runPy(path, nodata) {
       rej(`file ${path} does not exist`);
       return;
     }
-    PythonShell.run('getGeoReference.py', {
+    PythonShell.run('py/getGeoReference.py', {
       args: [path]
     }, (err, out) => {
       if (err) {
@@ -27,7 +27,7 @@ module.exports = async function runPy(path, nodata) {
         return;
       }
       let time = new Date().getTime()
-      let ps = new PythonShell("main.py", {
+      let ps = new PythonShell("py/main.py", {
         args: [path, `./www/tiles/${time}`, nodata]
       })
       let per = 0

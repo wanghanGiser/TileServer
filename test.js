@@ -1,6 +1,6 @@
 const {PythonShell}=require('python-shell')
-const connect = require('./Message')
-const script=require('./script')
+const connect = require('./utils/Message')
+const script=require('./utils/script')
 connect.receieve((msg)=>{
     console.log(msg);
 })
