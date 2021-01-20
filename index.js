@@ -6,6 +6,11 @@ const fs = require('fs')
 const delDir = require('./delDir')
 const script = require('./script');
 const config = require('./config.json')
+if(!fs.existsSync('./www')){
+  fs.mkdirSync('./www');
+  fs.mkdirSync('./www/tiles')
+  fs.writeFileSync('./www/list.json',JSON.stringify({}))
+}
 const router = new Router()
 const app = new Koa()
 app.use(cors());
