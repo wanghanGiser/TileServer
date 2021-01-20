@@ -8,20 +8,15 @@ const script = require('./script');
 const config = require('./config.json')
 const connect = require('./Message')
 const WebSocket=require('ws')
+const http=require('http')
 if(!fs.existsSync('./www')){
   fs.mkdirSync('./www');
   fs.mkdirSync('./www/tiles')
   fs.writeFileSync('./www/list.json',JSON.stringify({}))
 }
-const wss=new WebSocket.Server({
-  port:3001
-})
-wss.on('connection',ws=>{
-  connect.receieve(msg=>{
-    ws.send(msg)
-  })
-})
+
 const app = new Koa()
+
 app.use(cors());
 const router = new Router()
 router.get("/publish", async (ctx) => {
@@ -63,9 +58,28 @@ router.get("/del", async (ctx) => {
     }
   }
 })
+
 app.use(router.routes()).use(router.allowedMethods());
 
 app.use(serve('www'));
+
+
+const wss=new WebSocket.Server({
+  port:3001
+},()=>{
+  console.log('ws inited');
+})
+wss.on('headers',(req)=>{
+  console.log(req);
+})
+wss.on('connection',ws=>{
+  connect.receieve(msg=>{
+    ws.send(JSON.stringify(msg))
+  })
+})
+
+
+
 app.listen(config.port,()=>{
   console.log(`server start at localhost:${config.port}`);
 })

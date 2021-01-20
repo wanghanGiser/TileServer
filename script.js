@@ -34,12 +34,15 @@ module.exports = async function runPy(path, nodata) {
       ps.on('message', msg => {
         if (/^\d/.test(msg)) {
           msg = msg.split(' ').slice(0, 3).join("");
-          if (per < 50) {
-            per = 50 * eval(msg)
+          if (per < 70) {
+            per = 70 * eval(msg)
           } else {
-            per = 50 + 50 * eval(msg)
+            per = 70 + 30 * eval(msg)
           }
-          connect.send(parseInt(per))
+          connect.send({
+            process:parseInt(per),
+            id:time
+          })
         }
       })
       ps.on('error', err => {
