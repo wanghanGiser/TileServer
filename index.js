@@ -6,15 +6,24 @@ const fs = require('fs')
 const delDir = require('./delDir')
 const script = require('./script');
 const config = require('./config.json')
+const connect = require('./Message')
+const WebSocket=require('ws')
 if(!fs.existsSync('./www')){
   fs.mkdirSync('./www');
   fs.mkdirSync('./www/tiles')
   fs.writeFileSync('./www/list.json',JSON.stringify({}))
 }
-const router = new Router()
+const wss=new WebSocket.Server({
+  port:3001
+})
+wss.on('connection',ws=>{
+  connect.receieve(msg=>{
+    ws.send(msg)
+  })
+})
 const app = new Koa()
 app.use(cors());
-app.use(serve('www'));
+const router = new Router()
 router.get("/publish", async (ctx) => {
   let data = await script(ctx.request.query.path, ctx.request.query.nodata).then(res => res).catch(e => e)
   if (data.status === 1) {
@@ -53,9 +62,10 @@ router.get("/del", async (ctx) => {
       msg:error
     }
   }
-   
- 
-  
 })
 app.use(router.routes()).use(router.allowedMethods());
-app.listen(config.port)
+
+app.use(serve('www'));
+app.listen(config.port,()=>{
+  console.log(`server start at localhost:${config.port}`);
+})

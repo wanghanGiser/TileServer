@@ -6,9 +6,10 @@ def main():
         'webviewer':'none',
         'profile':'mercator',
         'webviewer':'openlayers',
-        'nb_processes':4
+        'nb_processes':4,
+        'verbose':True
     }
-    if sys.argv[3]=="":
+    if sys.argv[3]=="" or sys.argv[3]=="undefined":
         options['srcnodata']=None
     else:
         options['srcnodata']=sys.argv[3]
