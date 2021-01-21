@@ -1,19 +1,23 @@
 
 function getData() {
+  let url = decodeURI(window.location.href).split(":")
   let ul = document.getElementById('list');
   ul.innerHTML = ""
-  axios.get('/list').then(res => {
-    let data = Object.keys(res.data).map(item => {
-      return {
-        id: item,
-        name: res.data[item].name
-      }
-    })
-    console.log(data);
-    data.forEach(item => {
-      let li = document.createElement('li');
-      li.innerHTML = `<span>${item.name}</span> <code>http://localhost:3000/tiles/${item.id}/</code> <a target="_blank" href=http://localhost:3000/server/openlayers.html?id=${item.id}&name=${item.name}>查看</a> <a href="javascript:void(0)" onclick="del('${item.id}')">删除</a>`;
-      ul.appendChild(li)
+  axios.get('/config.json').then(d => {
+    let cfg=d.data
+    axios.get('/list').then(res => {
+      let data = Object.keys(res.data).map(item => {
+        return {
+          id: item,
+          name: res.data[item].name
+        }
+      })
+      console.log(data);
+      data.forEach(item => {
+        let li = document.createElement('li');
+        li.innerHTML = `<span>${item.name}</span> <code>http:${url[1]}:${cfg.port}/tiles/${item.id}/</code> <a target="_blank" href=http:${url[1]}:${cfg.port}/server/openlayers.html?id=${item.id}&name=${item.name}>查看</a> <a href="javascript:void(0)" onclick="del('${item.id}')">删除</a>`;
+        ul.appendChild(li)
+      })
     })
   })
 }
