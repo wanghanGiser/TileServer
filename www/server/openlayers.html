@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tiles</title>
+    <script src="/server/lib/ol.min.js"></script>
+    <script src="/server/lib/axios.min.js"></script>
+    <link rel="stylesheet" href="/server/lib/ol.min.css">
+    <link rel="stylesheet" href="/server/css/map.css">
+</head>
+
+<body>
+    <div class="title"></div>
+    <div id="map"></div>
+    <script>
+        console.log(ol);
+        let url = decodeURI(window.location.href);
+        let props=url.split("?")[1].split('&').map(item=>{
+            return item.split("=")
+        })
+        let p={}
+        props.forEach(item=>{
+            p[item[0]]=item[1]
+        })
+        document.querySelector(".title").innerHTML=p.name
+        const map=new ol.Map({
+            target:"map",
+            view:new ol.View({
+                zoom:10,
+                center:[0,0],
+                projection:"EPSG:3857"
+            }),
+            layers:[
+                new ol.layer.Tile({
+                    source:new ol.source.OSM()
+                })
+            ]
+        })
+        
+        map.addLayer(new ol.layer.Tile({
+            source:new ol.source.XYZ({
+                url:`/tiles/${p.id}/{z}/{x}/{-y}.png`
+            })
+        }))
+        axios.get(`/tiles/${p.id}/tilemapresource.xml`).then(res=>{
+            let xml=res.data;
+            let parser=new DOMParser();
+            let data=parser.parseFromString(xml,'text/xml')
+            let dom=data.querySelector('BoundingBox')
+            let bounding=[dom.getAttribute('minx'),dom.getAttribute('miny'),dom.getAttribute('maxx'),dom.getAttribute('maxy')].map(item=>parseFloat(item))
+            map.getView().fit(ol.proj.transformExtent(bounding,"EPSG:4326","EPSG:3857"),{
+                duration:1000
+            })
+        })
+    </script>
+</body>
+
+</html>

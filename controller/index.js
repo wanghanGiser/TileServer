@@ -2,7 +2,7 @@ const Router = require("@koa/router");
 const router = new Router()
 const fs = require('fs')
 const path=require('path')
-const config = require('../config.json')
+const config = require('../www/config.json')
 
 const delDir = require('../utils/delDir')
 const script = require('../utils/script');

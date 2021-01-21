@@ -3,7 +3,7 @@ const serve = require('koa-static');
 const cors = require('@koa/cors');
 const fs = require('fs')
 
-const config = require('./config.json')
+const config = require('./www/config.json')
 const connect = require('./utils/Message')
 const WebSocket=require('ws')
 if(!fs.existsSync('./www/tiles')){

@@ -5,7 +5,7 @@ def main():
     options={
         'webviewer':'none',
         'profile':'mercator',
-        'webviewer':'openlayers',
+        'webviewer':'none',
         'nb_processes':4,
         'verbose':True
     }

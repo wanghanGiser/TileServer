@@ -25,12 +25,15 @@ function submit() {
     }, 0)
   })
 }
-const ws = new WebSocket('ws://localhost:3001')
-ws.onopen = () => {
-  console.log('ws connected');
-}
-ws.onmessage = msg => {
-  let data = JSON.parse(msg.data);
-  console.log(data);
-  document.getElementById('process').style.width = `${data.process}%`
-}
+axios.get('/config.json').then(res => {
+  let url = decodeURI(window.location.href).split(":")
+  const ws = new WebSocket(`ws:${url[1]}:${res.data.ws.port}`)
+  ws.onopen = () => {
+    console.log('ws connected');
+  }
+  ws.onmessage = msg => {
+    let data = JSON.parse(msg.data);
+    console.log(data);
+    document.getElementById('process').style.width = `${data.process}%`
+  }
+})

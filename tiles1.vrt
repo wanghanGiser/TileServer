@@ -12,7 +12,7 @@
     <WorkingDataType>Byte</WorkingDataType>
     <Option name="INIT_DEST">0</Option>
     <Option name="ERROR_OUT_IF_EMPTY_SOURCE_WINDOW">FALSE</Option>
-    <SourceDataset relativeToVRT="0">E:/Python/gdal1/input/bohai.tif</SourceDataset>
+    <SourceDataset relativeToVRT="0">e:/tif/bohai.tif</SourceDataset>
     <Transformer>
       <GenImgProjTransformer>
         <SrcGeoTransform>1270490.12432563538,82.6476527465543143,0,4025674.00799840968,0,-82.6476527465543143</SrcGeoTransform>
