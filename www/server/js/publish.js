@@ -33,7 +33,7 @@ axios.get('/config.json').then(res => {
   }
   ws.onmessage = msg => {
     let data = JSON.parse(msg.data);
-    console.log(data);
     document.getElementById('process').style.width = `${data.process}%`
+    document.getElementById('info').innerHTML=data.msg
   }
 })
