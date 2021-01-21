@@ -21,7 +21,7 @@ function submit() {
     document.getElementById('process').style.width = '100%'
     document.getElementById('process').style.transition = "all .3s ease-in-out"
     setTimeout(() => {
-      alert(e.response.data)
+      alert(e.response.data.msg)
     }, 0)
   })
 }

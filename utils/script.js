@@ -5,7 +5,10 @@ module.exports = async function runPy(path, nodata) {
   nodata = nodata ? nodata : ""
   return new Promise((res, rej) => {
     if (!fs.existsSync(path)) {
-      rej(`file ${path} does not exist`);
+      rej({
+        status:0,
+        msg:`文件 ${path} 不存在。`
+      });
       return;
     }
     PythonShell.run('py/getGeoReference.py', {
@@ -22,7 +25,7 @@ module.exports = async function runPy(path, nodata) {
       if (out[0] === "") {
         rej({
           status: 0,
-          msg: 'no georeference'
+          msg: '文件没有空间参考。'
         });
         return;
       }
