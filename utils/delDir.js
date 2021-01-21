@@ -1,6 +1,7 @@
 const fs = require('fs');
 
 function delDir(path){
+    console.log(path);
     let files = [];
     if(fs.existsSync(path)){
         files = fs.readdirSync(path);

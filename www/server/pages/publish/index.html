@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>发布</title>
+  <link rel="stylesheet" href="../../../server/css/publish.css">
+  <link rel="stylesheet" href="../../../server/css/bootstrap.min.css">
+  <script src="../../../server/lib/axios.min.js"></script>
+</head>
+
+<body>
+  <div>
+    <a href="http://localhost:3000/server" target="_parent" rel="noopener noreferrer">主页</a>
+    <a href="http://localhost:3000/server/pages/publish/" target="_parent" rel="noopener noreferrer">发布</a>
+    <a href="http://localhost:3000/server/pages/list/" target="_parent" rel="noopener noreferrer">服务列表</a>
+  </div>
+  <div>
+    <input type="text" class="form-control" placeholder="请输入路径" id="path">
+    <input type="text" class="form-control" placeholder="请输入名称" id="name">
+    <input type="text" class="form-control" placeholder="请输入nodata" id="nodata">
+    <button type="button" class="btn btn-primary" style="margin-top:20px;" onclick="submit()">发布</button>
+  </div>
+  <div style="width: 100%;height: 10px;border: 1px solid #ccc;margin-top: 20px;width: 500px;">
+    <div id="process" style="background-color: #45aaf2;height: 10px;width: 0;transition: all .3s ease-in-out;"></div>
+  </div>
+  <script src="../../../server/js/publish.js"></script>
+  <script>
+
+  </script>
+</body>
+
+</html>

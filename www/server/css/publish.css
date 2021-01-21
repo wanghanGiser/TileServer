@@ -1,0 +1,12 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+body,html{
+  padding: 15px;
+}
+
+input[type='text']{
+  margin-top: 10px;
+  width: 300px;
+}

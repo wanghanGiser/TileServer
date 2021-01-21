@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+  <link rel="stylesheet" href="../../../server/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div>
+    <a href="http://localhost:3000/server" target="_parent" rel="noopener noreferrer">主页</a>
+    <a href="http://localhost:3000/server/pages/publish/" target="_parent" rel="noopener noreferrer">发布</a>
+    <a href="http://localhost:3000/server/pages/list/" target="_parent" rel="noopener noreferrer">服务列表</a>
+  </div>
+  <p>
+    <h3>发布服务 <code>GET</code> <code>/publish</code></h3>
+    <h4>请求参数（querystring）：</h4>
+    <pre style="width:500px;">
+      {
+        "path":"E:/xx/xx.tif",//tif数据源路径
+        "name":"xxx",//名称
+        "nodata":"0"//nodata的值
+      }
+    </pre>
+  </p>
+</body>
+
+</html>
