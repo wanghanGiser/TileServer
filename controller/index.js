@@ -6,6 +6,9 @@ const config = require('../www/config.json')
 
 const delDir = require('../utils/delDir')
 const script = require('../utils/script');
+router.get("/",async (ctx)=>{
+  ctx.redirect("/server")
+})
 router.get("/publish", async (ctx) => {
   let data = await script(ctx.request.query.path, ctx.request.query.nodata).then(res => res).catch(e => e)
   if (data.status === 1) {
