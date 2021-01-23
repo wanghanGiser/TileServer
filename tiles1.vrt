@@ -4,15 +4,15 @@
   <VRTRasterBand dataType="Byte" band="1" subClass="VRTWarpedRasterBand">
     <ColorInterp>Gray</ColorInterp>
   </VRTRasterBand>
-  <BlockXSize>512</BlockXSize>
+  <VRTRasterBand dataType="Byte" band="2" subClass="VRTWarpedRasterBand"><ColorInterp>Alpha</ColorInterp></VRTRasterBand><BlockXSize>512</BlockXSize>
   <BlockYSize>128</BlockYSize>
   <GDALWarpOptions>
-    <Option name="UNIFIED_SRC_NODATA">YES</Option><Option name="INIT_DEST">NO_DATA</Option><WarpMemoryLimit>6.71089e+07</WarpMemoryLimit>
+    <WarpMemoryLimit>6.71089e+07</WarpMemoryLimit>
     <ResampleAlg>NearestNeighbour</ResampleAlg>
     <WorkingDataType>Byte</WorkingDataType>
     <Option name="INIT_DEST">0</Option>
     <Option name="ERROR_OUT_IF_EMPTY_SOURCE_WINDOW">FALSE</Option>
-    <SourceDataset relativeToVRT="0">E:/tif/bohai.tif</SourceDataset>
+    <SourceDataset relativeToVRT="0">e:/tif/bohai.tif</SourceDataset>
     <Transformer>
       <GenImgProjTransformer>
         <SrcGeoTransform>1270490.12432563538,82.6476527465543143,0,4025674.00799840968,0,-82.6476527465543143</SrcGeoTransform>
@@ -33,5 +33,5 @@
     <BandList>
       <BandMapping src="1" dst="1" />
     </BandList>
-  </GDALWarpOptions>
+  <DstAlphaBand>2</DstAlphaBand><Option name="INIT_DEST">0</Option></GDALWarpOptions>
 </VRTDataset>

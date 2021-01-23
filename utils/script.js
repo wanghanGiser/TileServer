@@ -35,7 +35,7 @@ module.exports = async function runPy(path, nodata) {
       })
       let per = 0
       ps.on('message', msg => {
-        console.log(msg);
+        // console.log(msg);
         if (/^\d/.test(msg)) {
           let r = msg.split(' ').slice(0, 3).join("");
           if (per < 20) {
@@ -47,6 +47,7 @@ module.exports = async function runPy(path, nodata) {
         connect.send({
           process:per,
           msg,
+          status:0,
           id:time
         })
       })
@@ -58,6 +59,12 @@ module.exports = async function runPy(path, nodata) {
         })
       })
       ps.on('close', ()=> {
+        connect.send({
+          process:per,
+          msg:"处理完成",
+          status:1,
+          id:time
+        })
         res({
           status: 1,
           msg: time

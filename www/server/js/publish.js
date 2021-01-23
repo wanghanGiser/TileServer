@@ -2,10 +2,6 @@ function submit() {
   let path = document.getElementById('path').value
   let name = document.getElementById('name').value
   let nodata = document.getElementById('nodata').value
-  document.getElementById('process').style.transition = "none"
-  document.getElementById('process').style.backgroundColor = "#45aaf2"
-  document.getElementById('process').style.width = "0"
-  document.getElementById('process').style.transition = "all .3s ease-in-out"
 
   axios.get('/publish', {
     params: {
@@ -14,8 +10,18 @@ function submit() {
       nodata
     }
   }).then(res => {
-    document.getElementById('process').style.backgroundColor = "#20bf6b"
+    if (res.data.status === 1) {
+      // 
+      document.getElementById('process').style.transition = "none"
+      document.getElementById('process').style.backgroundColor = "#45aaf2"
+      document.getElementById('process').style.width = "0"
+      document.getElementById('process').style.transition = "all .3s ease-in-out"
+    }
+
   }).catch((e) => {
+    if (e.response.data.status === 0) {
+      return;
+    }
     document.getElementById('process').style.transition = "none"
     document.getElementById('process').style.backgroundColor = "#eb3b5a"
     document.getElementById('process').style.width = '100%'
@@ -33,7 +39,13 @@ axios.get('/config.json').then(res => {
   }
   ws.onmessage = msg => {
     let data = JSON.parse(msg.data);
-    document.getElementById('process').style.width = `${data.process}%`
-    document.getElementById('info').innerHTML=data.msg
+    if (data.status === 1) {
+      document.getElementById('process').style.backgroundColor = "#20bf6b"
+    } else {
+      document.getElementById('process').style.width = `${data.process}%`
+    }
+    let obj=document.getElementById('info')
+    obj.value+=`${data.msg}\n`
+    obj.scrollTop = obj.scrollHeight
   }
 })
