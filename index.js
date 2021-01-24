@@ -32,6 +32,6 @@ wss.on('connection',ws=>{
 
 
 const server=app.listen(config.port,()=>{
-  console.log(`server start at localhost:${config.port}`);
+  console.log(`server start at http://localhost:${config.port}`);
 })
 server.setTimeout(0)

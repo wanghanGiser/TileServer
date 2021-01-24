@@ -16,19 +16,13 @@ function submit() {
       document.getElementById('process').style.backgroundColor = "#45aaf2"
       document.getElementById('process').style.width = "0"
       document.getElementById('process').style.transition = "all .3s ease-in-out"
+      document.getElementById("msginfo").className = "text-success"
+      document.getElementById("msginfo").innerHTML = res.data.msg
+    } else {
+      document.getElementById("msginfo").className = "text-danger"
+      document.getElementById("msginfo").innerHTML = res.data.msg
     }
 
-  }).catch((e) => {
-    if (e.response.data.status === 0) {
-      return;
-    }
-    document.getElementById('process').style.transition = "none"
-    document.getElementById('process').style.backgroundColor = "#eb3b5a"
-    document.getElementById('process').style.width = '100%'
-    document.getElementById('process').style.transition = "all .3s ease-in-out"
-    setTimeout(() => {
-      alert(e.response.data.msg)
-    }, 0)
   })
 }
 axios.get('/config.json').then(res => {
@@ -41,11 +35,14 @@ axios.get('/config.json').then(res => {
     let data = JSON.parse(msg.data);
     if (data.status === 1) {
       document.getElementById('process').style.backgroundColor = "#20bf6b"
-    } else {
+    } else if (data.status === 2) {
+      document.getElementById("msginfo").innerHTML = ""
+      document.getElementById('process').style.backgroundColor = "red"
+    }else {
       document.getElementById('process').style.width = `${data.process}%`
     }
-    let obj=document.getElementById('info')
-    obj.value+=`${data.msg}\n`
+    let obj = document.getElementById('info')
+    obj.value += `${data.msg}\n`
     obj.scrollTop = obj.scrollHeight
   }
 })

@@ -4,7 +4,12 @@ const fs = require('fs');
 module.exports = async function runPy(path, nodata) {
   nodata = nodata ? nodata : ""
   return new Promise((res, rej) => {
+    
     if (!fs.existsSync(path)) {
+      connect.send({
+        msg: `文件 ${path} 不存在。`,
+        status:2,
+      })
       rej({
         status:0,
         msg:`文件 ${path} 不存在。`
@@ -16,6 +21,12 @@ module.exports = async function runPy(path, nodata) {
     }, (err, out) => {
       if (err) {
         console.log(err);
+        connect.send({
+          process:per,
+          msg:err,
+          status:2,
+          id:time
+        })
         rej({
           status: 0,
           msg: err
@@ -23,6 +34,10 @@ module.exports = async function runPy(path, nodata) {
         return;
       }
       if (out[0] === "") {
+        connect.send({
+          msg: '文件没有空间参考。',
+          status:2,
+        })
         rej({
           status: 0,
           msg: '文件没有空间参考。'
@@ -53,6 +68,12 @@ module.exports = async function runPy(path, nodata) {
       })
       ps.on('error', err => {
         console.log(err);
+        connect.send({
+          process:per,
+          msg:err,
+          status:1,
+          id:time
+        })
         rej({
           status: 0,
           msg: err
